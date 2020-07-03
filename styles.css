@@ -1,0 +1,49 @@
+table, tr, td, th{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td, th{
+    padding: 10px;
+}
+
+#controlPannel{
+    position: absolute;
+    background-color: blanchedalmond;
+}
+
+div{
+    border: 1px solid black;
+
+}
+
+#user_list{
+    position: absolute;
+    top: 105%;
+}
+
+#tableInfo{
+    position: absolute;
+    left: 40%;
+}
+
+#donarReg{
+    position: absolute;
+    padding: 10px;
+    left: 85%;
+    top: 85%;
+}
+#updateInfo{
+    position: absolute;
+    padding: 10px;
+    top: 140%;
+    left: 85%;
+}
+
+#uiInfo{
+    position: absolute;
+    padding: 10px;
+    top: 55%;
+}
+
+

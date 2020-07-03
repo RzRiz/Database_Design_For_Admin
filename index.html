@@ -1,0 +1,193 @@
+<html>
+    <head>
+        <title>KIN Blood Admin</title>
+        <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-firestore.js"></script>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
+        <h1>KIN Blood database</h1>
+
+        <div id="controlPannel">
+            <form id="loginForm">
+                <input type="text" placeholder="Email"><br>
+                <input type="password" placeholder="Password">
+                <button type="submit">Login</button>
+                <button>Logout</button>
+            </form>
+            
+            <div>
+                <button>All</button>
+                <button>App</button>
+                <button>Non App</button>
+            </div>
+
+            <div>
+                <button>Donar</button>
+                <button>Not Donar</button>
+            </div>
+
+            <div>
+                <button>A+</button>
+                <button>B+</button>
+                <button>AB+</button>
+                <button>O+</button><br>
+                <button>A-</button>
+                <button>B-</button>
+                <button>AB-</button>
+                <button>O-</button>
+            </div>
+
+            <div>
+                <button>Available</button>
+                <button>Unavailable</button>
+            </div>
+
+            <div>
+                <button>Available All</button>
+                <button>Unavailable All</button>
+            </div>
+
+            <form id="sessionForm">
+                <input type="text" placeholder="Session" id="session">
+                <button type="submit">Get</button>
+            </form>
+
+        </div>
+
+        <div id="uiInfo">
+            <h3>Selected:</h3>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        </div>
+
+        <table id="tableInfo">
+            <tr>
+                <td>Total User: </td>
+                <td></td>
+                <td>Total Donar: </td>
+                <td></td>
+                <td>Available Donar: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>A+ Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>B+ Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>AB+ Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>O+ Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>A- Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>B- Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>AB- Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>O- Donar: </td>
+                <td>Total: </td>
+                <td></td>
+                <td>Available: </td>
+                <td></td>
+            </tr>
+        </table>
+        <div id="donarReg">
+            <h2>Add Donar</h2>
+            <form id="add-user-form">
+                <input type="text" placeholder="Full Name"><br>
+                <input type="text" placeholder="Blood Group"><br>
+                <input type="text" placeholder="Phone Number"><br>
+                <input type="text" placeholder="Home District"><br>
+                <input type="text" placeholder="Department"><br>
+                <input type="text" placeholder="Session"><br>
+                <input type="number" placeholder="Donation Times"><br>
+                <input type="text" placeholder="Status"><br>
+                <button type="submit">Add Donar</button>
+            </form>
+        </div>
+        <div id="updateInfo">
+            <h2>Edit Info</h2>
+                <form id="updateForm">
+                    <input type="text" placeholder="Full Name"><br>
+                    <input type="text" placeholder="Blood Group"><br>
+                    <input type="text" placeholder="Phone Number"><br>
+                    <input type="text" placeholder="Home District"><br>
+                    <input type="text" placeholder="Department"><br>
+                    <input type="text" placeholder="Session"><br>
+                    <input type="number" placeholder="Donation Times"><br>
+                    <input type="text" placeholder="Status"><br>
+                    <button type="submit" id="btn_update">Update</button>
+                </form>
+        </div>
+        <table id="user_list">
+            <tr>
+                <th>SL.</th>
+                <th>Name</th>
+                <th>Blood Group</th>
+                <th>Phone Number</th>
+                <th>Homee District</th>
+                <th>Department</th>
+                <th>Session</th>
+                <th>Donation Times</th>
+                <th>Status</th>
+            </tr>
+
+        </table>
+
+            <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyCT0LE6ZpIGSi7nd-aqxPLUTTBx8t_FXCU",
+                authDomain: "fir-5d762.firebaseapp.com",
+                databaseURL: "https://fir-5d762.firebaseio.com",
+                projectId: "fir-5d762",
+                storageBucket: "fir-5d762.appspot.com",
+                messagingSenderId: "737173992030",
+                appId: "1:737173992030:web:177d735f2f7addb55cbacf",
+                measurementId: "G-K3XZG3EVT3"
+            };
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            const mAuth = firebase.auth();
+            </script>
+        <script src="app.js">  </script>
+    </body>
+</html>
